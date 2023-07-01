@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<div class="icon-chat-home">
+    <img src="~/img/icons/chat-person.png" class="icon-chat-person" alt="Chat" width="80px" />
+    <img src="~/img/icons/chat.png" class="icon-chat" alt="Chat" width="80px" />
+    <img src="~/img/icons/chat-love.png" class="icon-chat-love" alt="Chat" width="50px" />
+    <img src="~/img/icons/person.png" class="icon-person" alt="Chat" width="50px" />
+</div>
+
+<img src="~/img/icons/grid.png" class="grid" alt="grid"/>
+
+<div class="d-flex mt-6 text-white justify-content-center">
+    <span class="rounded-pill secondary-bg-color p-2 px-4 text-small">Created With <span class="text-danger">❤</span> By Sayidina Ahmadal Qososyi</span>
+</div>
+
+<div class="d-flex mt-3 text-white justify-content-center">
+    <div class="d-flex flex-column align-items-center gap-4 col-8">
+        <h1 class="fw-bold fs-2 text-center">Your Gateway to <span class="text-danger text-center">Seamless</span> Online Conversations</h1>
+
+        <span class="text-white text-center">Experience seamless real-time communication with our chat application. Embrace a smooth, responsive, and intuitive chatting experience to connect with friends, family, and colleagues wherever you are.</span>
+
+        <a asp-area="Identity" asp-page="/Account/Register" class="rounded-pill bg-danger text-white p-2 px-4">Get Started</a>
+    </div>
+</div>
+
+<div class="w-100 d-flex justify-content-end d-sm-none d-md-flex position-absolute bottom-0 left-0 p-4">
+    <a href="#" class="text-white text-small rounded-pill secondary-bg-color p-1 px-3 credit">📌 Thank's For <span class="text-danger">Some Person</span></a>
+</div>

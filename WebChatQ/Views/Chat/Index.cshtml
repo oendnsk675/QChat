@@ -1,0 +1,314 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<IdentityUser>
+
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Chat Room";
+    Layout = "~/Views/Shared/_CustomLayoutChat.cshtml";
+
+    var currentUser = await UserManager.GetUserAsync(User);
+    var currentUserId = currentUser.Id;
+}
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<!-- char-area -->
+<section class="message-area" style="background: none;">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="chat-area secondary-bg-color">
+                    <!-- chatlist -->
+                    <div class="chatlist">
+                        <div class="modal-dialog-scrollable">
+                            <div class="modal-content secondary-bg-color">
+                                <div class="chat-header">
+                                    <div class="msg-search d-none">
+                                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" aria-label="search">
+                                        <a class="add" href="#"><img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/add.svg" alt="add"></a>
+                                    </div>
+
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link red-bg-color text-white active" id="Open-tab" data-bs-toggle="tab" data-bs-target="#Open" type="button" role="tab" aria-controls="Open" aria-selected="true">Chat</button>
+                                        </li>
+                                        <li class="nav-item d-none" role="presentation">
+                                            <button class="nav-link" id="Closed-tab" data-bs-toggle="tab" data-bs-target="#Closed" type="button" role="tab" aria-controls="Closed" aria-selected="false">Friends</button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="">
+                                    <!-- chat-list -->
+                                    <div class="chat-lists">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Open" role="tabpanel" aria-labelledby="Open-tab">
+                                                <!-- chat-list -->
+                                                <div class="chat-list">
+                                                    <br />
+                                                    @foreach (var user in Model)
+                                                    {
+                                                        string email = user.Email;
+                                                        int atIndex = email.IndexOf("@");
+                                                        string username = email.Substring(0, atIndex);
+                                                        string userId = user.Id;
+                                                        string truncatedUsername = username.Length > 19 ? username.Substring(0, 19) : username;
+                                                        if (userId != currentUserId)
+                                                        {
+                                                            <a href="#" class="d-flex align-items-center mb-2 container-list-chat" data-id="@userId" style="padding: 0.5rem; margin-bottom: 0; border-radius: 7px;">
+                                                                <div class="flex-shrink-0">
+                                                                    <img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/user.png" alt="user img">
+                                                                    <span class="active d-none"></span>
+                                                                </div>
+                                                                <div class="flex-grow-1 ms-3">
+                                                                    <h3 class="text-white">@truncatedUsername..</h3>
+                                                                    <span class="hidden-name d-none">@username </span>
+                                                                </div>
+                                                            </a>
+
+                                                        }
+                                                    }
+                                                </div>
+                                                <!-- chat-list -->
+                                            </div>
+                                            <div class="tab-pane fade" id="Closed" role="tabpanel" aria-labelledby="Closed-tab">
+
+                                                <!-- chat-list -->
+                                                <div class="chat-list">
+                                                    <a href="#" class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img class="img-fluid" src="" alt="user img">
+                                                            <span class="active"></span>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <h3>...</h3>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <!-- chat-list -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- chat-list -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- chatlist -->
+                    <!-- chatbox -->
+                    <div class="chatbox">
+                        <div class="modal-dialog-scrollable">
+                            <div class="modal-content third-bg-color">
+                                <div class="msg-head">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div id="header-info-selected" class="d-flex align-items-center">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <ul class="moreoption">
+                                                <li class="navbar nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-body">
+                                    <div class="msg-body">
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <div class="send-box d-none">
+                                    <form id="sendMessage">
+                                        <input type="text" id="msg" class="form-control w-100" aria-label="message…" placeholder="Write message…" style="
+                                            background: #373e46;
+                                            color: white;
+                                        ">
+
+                                        <div class="position-absolute top-0 right-0 container-input-btn-chat">
+                                            <button type="submit" class="red-bg-color px-2 d-flex w-100">
+                                                <img src="~/img/icons/send.svg" alt="send icon" width="21px"/>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- chatbox -->
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- char-area -->
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+
+    <script>
+        let userLinks = document.querySelectorAll("a[data-id]");
+        let userId = "";
+        let sendMessage = document.querySelector("#sendMessage");
+        let connection = new signalR.HubConnectionBuilder().withUrl("/chatroom").build();
+        let messageList = document.querySelector('.msg-body ul');
+        let userList = document.querySelector(".chatlist");
+        let chatBox = document.querySelector(".chatbox");
+
+        function clearMessageList() {
+            messageList.innerHTML = ""; // Menghapus semua elemen dalam ul
+        }
+
+        function buildMessageElement(sender, message, status_time, time) {
+            var li = document.createElement('li');
+            li.classList.add(sender ? 'repaly' : 'sender');
+
+            var p = document.createElement('p');
+            p.textContent = message;
+
+            var timeSpan = document.createElement('span');
+            timeSpan.classList.add('time');
+            let _formatTime = null;
+            if (status_time) {
+                _formatTime = formatTime(time);
+            } else {
+                _formatTime = formatCurrentTime();
+            }
+            timeSpan.textContent = _formatTime;
+
+            li.appendChild(p);
+            li.appendChild(timeSpan);
+
+            messageList.appendChild(li);
+            messageList.parentElement.parentElement.scrollTop = messageList.parentElement.parentElement.scrollHeight;
+        }
+
+        function formatTime(dateTimeString) {
+            const date = new Date(dateTimeString);
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'pm' : 'am';
+
+            // Ubah format jam menjadi 12 jam
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Jam 0 diubah menjadi 12
+
+            // Tambahkan leading zero jika diperlukan
+            hours = String(hours).padStart(2, '0');
+            minutes = String(minutes).padStart(2, '0');
+
+            const formattedTime = hours + ':' + minutes + ' ' + ampm;
+            return formattedTime;
+        }
+
+        function formatCurrentTime() {
+            const currentDate = new Date();
+            const formattedTime = currentDate.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+            return formattedTime;
+        }
+
+        userLinks.forEach(function (link) {
+            link.addEventListener("click", async function (event) {
+                event.preventDefault();
+                $(".container-list-chat").removeClass("red-bg-color")
+                $(link).addClass("red-bg-color")
+                $(".send-box").removeClass("d-none")
+                userId = link.getAttribute("data-id");
+                clearMessageList()
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetAll", "Chat")',
+                    data: { ToId: userId },
+                    success: function (result) {
+                        console.log(result);
+                        result.forEach(el => {
+                            buildMessageElement(userId === el.toId, el.message, true, el.waktu);
+                        })
+                    }
+                });
+                var usernameElement = link.querySelector(".hidden-name");
+                var username = usernameElement.textContent;
+                var imageSrc = link.querySelector("img").src;
+
+                // Mengambil lebar viewport
+                var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+                // Menentukan batas lebar viewport untuk tampilan mobile (misalnya, 768 piksel)
+                var mobileViewWidth = 768;
+
+                var header = document.getElementById("header-info-selected");
+                header.innerHTML = `
+                        <div class="d-flex align-items-center">
+                                    <span onClick="backListCheck()" class="chat-icon  back-icon d-flex"><img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/arroleftt.svg" alt="image title"></span>
+                            <div class="flex-shrink-0 d-flex">
+                                        <img class="img-fluid" src="${imageSrc}" alt="user img">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h3 class="primary-color">${username}</h3>
+                            </div>
+                        </div>
+                    `;
+
+                if (viewportWidth <= mobileViewWidth) {
+                    userList.style.display = "none";
+                    chatBox.style.display = "block";
+                }
+            });
+        });
+
+        const backListCheck = () => {
+            userList.style.display = "block";
+            chatBox.style.display = "none";
+            $(".container-list-chat").removeClass("red-bg-color")
+        }
+
+        // Receive message from server
+        connection.on("ReceiveMessage", function (sender, message) {
+            console.log(sender, message)
+            buildMessageElement(userId === sender, message, false, '');
+        });
+
+        sendMessage.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const message = document.querySelector("#msg").value
+            connection.invoke("SendMessage", userId, message).then(() => {
+                buildMessageElement(true, message, false, '');
+            }).catch(function (err) {
+                console.error(err);
+            });
+        })
+
+        // Start the connection
+        connection.start().then(function () {
+            console.log('SignalR connection started.');
+        }).catch(function (err) {
+            console.error(err);
+        });
+    </script>
+}
+

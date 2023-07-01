@@ -1,0 +1,63 @@
+﻿@page
+@model RegisterModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_CustomLayoutAuth.cshtml";
+}
+
+
+<div class="row justify-content-between">
+    <div class="col-md-30 text-white container">
+        <div class="w-100 align-items-center d-flex mb-3 mb-3rem mt-4  justify-content-between">
+            <a href="/" class="d-flex text-white gap-2 align-items-center container-image-auth">
+                <img src="~/img/logo-red.png" width="40px" />
+                <span class="fw-bold fs-3">Qchat</span>
+            </a>
+
+            <a href="/" class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="21" height="21" viewBox="0 0 24 24"><path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" /></svg>
+            </a>
+        </div>
+
+        <h3 class="mb-1">Join our network</h3>
+        <span>We'd love to have you! Join our 100% remote network, find some friend's and have fun.</span>
+
+        <button id="registerSubmit" type="submit" class="w-100 mt-4 d-flex align-items-center gap-2 justify-content-center btn btn-lg btn-white py-1">
+            <img src="~/img/google logo.png" alt="google logo" width="19" />
+            <span class="fs-6">Sign up with Google</span>
+        </button>
+
+        <hr />
+
+        <form class="mt-3 d-flex flex-column gap-3" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="">
+                <input asp-for="Input.Email" class="form-control text-black" autocomplete="email" aria-required="true" placeholder="Enter your email" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Enter your password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Enter your password confirmation" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 fs-6 btn btn-lg btn-danger py-1">Register</button>
+        </form>
+
+        <div class="w-100 d-flex justify-content-center">
+            <a asp-area="Identity" class="text-white mt-3" asp-page="/Account/Login">Already have an account? <span class="text-danger">Login</span></a>
+        </div>
+    </div>
+
+    <div class="col-md-8 image-person-auth p-0">
+        <img src="~/img/brooke-cagle-g1Kr4Ozfoac-unsplash (1).jpg" alt="image" />
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

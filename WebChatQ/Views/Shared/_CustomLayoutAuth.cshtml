@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebChatQS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebChatQ.styles.css" asp-append-version="true" />
+    <style>
+        .primary-color {
+            color: white !important;
+        }
+
+        .primary-bg-color {
+            background: #222831 !important;
+        }
+
+        .secondary-bg-color {
+            background: #393E46 !important;
+        }
+
+        .third-bg-color {
+            background: #8e949d7d !important;
+        }
+
+        .red-bg-color {
+            background: #e97979 !important;
+        }
+    </style>
+</head>
+<body class="primary-bg-color overflow-hidden">
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
